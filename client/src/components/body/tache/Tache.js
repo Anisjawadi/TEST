@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableHead, TableCell, Paper, TableRow, TableBody, Button, makeStyles } from '@material-ui/core'
-import {  fetchAllTaches,dispatchGetAllTaches,deleteTache } from '../../../redux/actions/tacheAction';
+import { fetchAllTaches, dispatchGetAllTaches, deleteTache } from '../../../redux/actions/tacheAction';
 
 import axios from 'axios';
 const useStyles = makeStyles({
@@ -27,58 +27,58 @@ const useStyles = makeStyles({
 
 function Tache() {
     const classes = useStyles();
-    
+
     const taches = useSelector((state) => state.taches);
     console.log(taches);
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  useEffect(() => {
+    useEffect(() => {
 
-    
-    fetchAllTaches().then(res =>{
-        dispatch(dispatchGetAllTaches(res))
-    })
-   
-  }, [ dispatch]);
- 
-  const deleteTacheData = async (id) => {
-    await axios.delete(`/tache/delete/${id}`);
-    fetchAllTaches().then(res =>{
-        dispatch(dispatchGetAllTaches(res))
-    })
-    
-}
+
+        fetchAllTaches().then(res => {
+            dispatch(dispatchGetAllTaches(res))
+        })
+
+    }, [dispatch]);
+
+    const deleteTacheData = async (id) => {
+        await axios.delete(`/tache/delete/${id}`);
+        fetchAllTaches().then(res => {
+            dispatch(dispatchGetAllTaches(res))
+        })
+
+    }
     return (
         <div className="home_page">
             <h2>Hello tache!</h2>
-        <Link to='/addTache'>ajouter tache</Link>  
-         <Table className={classes.table}>
-            <TableHead>
-                <TableRow className={classes.thead}>
-                    
-                    <TableCell>Description</TableCell>
-                    <TableCell>Deadline</TableCell>
-                    <TableCell></TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-            {taches.map((tache) => (
-                    <TableRow className={classes.row} >
-                        
-                        <TableCell>{tache.description}</TableCell>
-                        <TableCell>{tache.deadline}</TableCell>
-                        
-                        <TableCell>
-                            
-                            <Button color="secondary" variant="contained" onClick={() => deleteTacheData(tache._id)}>Delete</Button> 
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                
-            </TableBody>
-        </Table>
+            <Link to='/addTache'>ajouter tache</Link>
+            <Table className={classes.table}>
+                <TableHead>
+                    <TableRow className={classes.thead}>
 
-           
+                        <TableCell>Description</TableCell>
+                        <TableCell>Deadline</TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {taches.map((tache) => (
+                        <TableRow className={classes.row} >
+
+                            <TableCell>{tache.description}</TableCell>
+                            <TableCell>{tache.deadline}</TableCell>
+
+                            <TableCell>
+
+                                <Button color="secondary" variant="contained" onClick={() => deleteTacheData(tache._id)}>Delete</Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+
+                </TableBody>
+            </Table>
+
+
         </div>
     )
 }

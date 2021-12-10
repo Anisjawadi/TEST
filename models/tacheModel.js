@@ -1,14 +1,8 @@
 const mongoose = require('mongoose')
 
 const tacheSchema = new mongoose.Schema({
-    
-   
     description: String,
-    deadline : Date, 
-  
-       
-}
-
-)
+    deadline: Date,
+});
 
 module.exports = mongoose.model('taches', tacheSchema);

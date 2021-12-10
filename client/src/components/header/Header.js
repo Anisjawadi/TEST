@@ -1,13 +1,13 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 
 function Header() {
     const auth = useSelector(state => state.auth)
 
-    const {user, isLogged} = auth
+    const { user, isLogged } = auth
 
 
     const handleLogout = async () => {
@@ -23,7 +23,7 @@ function Header() {
     const userLink = () => {
         return <li className="drop-nav">
             <Link to="#" className="avatar">
-            <img src={user.avatar} alt=""/> {user.name} <i className="fas fa-angle-down"></i>
+                <img src={user.avatar} alt="" /> {user.name} <i className="fas fa-angle-down"></i>
             </Link>
             <ul className="dropdown">
                 <li><Link to="/profile">Profile</Link></li>
@@ -43,13 +43,13 @@ function Header() {
             </div>
 
             <ul style={transForm}>
-                <li><Link to="/tache"> Gerer Taches</Link></li>
-                {
-                    isLogged
+                {isLogged ? <li><Link to="/tache"> Gerer Taches</Link></li> : <li></li>}
+
+                {isLogged
                     ? userLink()
-                    :<li><Link to="/login"><i className="fas fa-user"></i> Sign in</Link></li>
+                    : <li><Link to="/login"><i className="fas fa-user"></i> Sign in</Link></li>
                 }
-                
+
             </ul>
         </header>
     )
